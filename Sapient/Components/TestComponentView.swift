@@ -11,7 +11,7 @@ struct TestComponentView: View {
     var body: some View {
         Text("Hello, world!")
             .frame(width: 200, height: 100)
-            .font(.title)
+            .fontStyle(AppFont.displayItalic)
             .padding()
             .background(.red)
             .foregroundStyle(.white)

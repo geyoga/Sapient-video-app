@@ -11,7 +11,7 @@ import SwiftUI
 struct SapientApp: App {
     var body: some Scene {
         WindowGroup {
-            VideoPlayerView()
+            RootView()
         }
     }
 }
