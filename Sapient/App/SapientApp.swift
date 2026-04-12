@@ -9,7 +9,6 @@ import SwiftUI
 
 @main
 struct SapientApp: App {
-
     var body: some Scene {
         WindowGroup {
             VideoPlayerView()

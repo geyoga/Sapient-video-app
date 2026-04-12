@@ -23,6 +23,8 @@ public struct VideoPlayerView: View {
                 Text("No video available")
             }
             Spacer()
+            Text("hello")
+                .fontStyle(AppFont.displayMedium)
         }
     }
 }
