@@ -24,7 +24,7 @@ public struct VideoPlayerView: View {
             }
             Spacer()
             Text("hello")
-                .fontStyle(AppFont.displayMedium)
+                .fontStyle(AppFont.displayLarge)
         }
     }
 }
