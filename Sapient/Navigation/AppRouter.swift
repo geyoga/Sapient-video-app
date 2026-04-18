@@ -8,7 +8,7 @@
 import Foundation
 
 @Observable final class AppRouter {
-    var selectedTab: AppTab = .videoPlayer
+    var selectedTab: AppTab = .library
 
     func switchTo(_ tab: AppTab) {
         selectedTab = tab

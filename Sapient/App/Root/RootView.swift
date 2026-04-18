@@ -20,53 +20,52 @@ struct RootView: View {
         @Bindable var settingsRouter = settingsRouter
 
         TabView(selection: $appRouter.selectedTab) {
-            NavigationStack(path: $videoPlayerRouter.path) {
-                VideoPlayerRootView()
-                    .navigationTitle(AppTab.videoPlayer.title)
-                    .navigationDestination(for: VideoPlayerRoute.self) { route in
-                        switch route {
-                        case .detail(let videoID):
-                            VideoPlayerDetailView(videoID: videoID)
-                        }
+            TabNavigationShell(
+                path: $libraryRouter.path,
+                tab: .library,
+                title: AppTab.library.title,
+                root: {
+                    LibraryRootView()
+                },
+                destination: { (route: LibraryRoute) in
+                    switch route {
+                    case .detail(let itemID):
+                        LibraryDetailView(itemID: itemID)
                     }
-            }
-            .tabItem {
-                Label(AppTab.videoPlayer.title, systemImage: AppTab.videoPlayer.systemImage)
-            }
-            .tag(AppTab.videoPlayer)
-
-            NavigationStack(path: $libraryRouter.path) {
-                LibraryRootView()
-                    .navigationTitle(AppTab.library.title)
-                    .navigationDestination(for: LibraryRoute.self) { route in
-                        switch route {
-                        case .detail(let itemID):
-                            LibraryDetailView(itemID: itemID)
-                        }
+                }
+            )
+            TabNavigationShell(
+                path: $videoPlayerRouter.path,
+                tab: .insight,
+                title: AppTab.insight.title,
+                root: {
+                    VideoPlayerRootView()
+                },
+                destination: { (route: VideoPlayerRoute) in
+                    switch route {
+                    case .detail(let id):
+                        VideoPlayerDetailView(videoID: id)
                     }
-            }
-            .tabItem {
-                Label(AppTab.library.title, systemImage: AppTab.library.systemImage)
-            }
-            .tag(AppTab.library)
-
-            NavigationStack(path: $settingsRouter.path) {
-                SettingsRootView()
-                    .navigationTitle(AppTab.settings.title)
-                    .navigationDestination(for: SettingsRoute.self) { route in
-                        switch route {
-                        case .account:
-                            SettingsAccountView()
-                        case .about:
-                            SettingsAboutView()
-                        }
+                }
+            )
+            TabNavigationShell(
+                path: $settingsRouter.path,
+                tab: .settings,
+                title: AppTab.settings.title,
+                root: {
+                    SettingsRootView()
+                },
+                destination: { (route: SettingsRoute) in
+                    switch route {
+                    case .account:
+                        SettingsAccountView()
+                    case .about:
+                        SettingsAboutView()
                     }
-            }
-            .tabItem {
-                Label(AppTab.settings.title, systemImage: AppTab.settings.systemImage)
-            }
-            .tag(AppTab.settings)
+                }
+            )
         }
+        .tint(AppColor.secondary.color)
     }
 }
 

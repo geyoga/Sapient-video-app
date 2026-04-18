@@ -8,14 +8,14 @@
 import Foundation
 
 enum AppTab: Hashable {
-    case videoPlayer
+    case insight
     case library
     case settings
 
     var title: String {
         switch self {
-        case .videoPlayer:
-            return "Video"
+        case .insight:
+            return "Insight"
         case .library:
             return "Library"
         case .settings:
@@ -25,12 +25,12 @@ enum AppTab: Hashable {
 
     var systemImage: String {
         switch self {
-        case .videoPlayer:
-            return "play.square"
+        case .insight:
+            return "chart.pie.fill"
         case .library:
             return "books.vertical"
         case .settings:
-            return "gearshape"
+            return "gearshape.fill"
         }
     }
 }

@@ -28,7 +28,7 @@ struct ColorToken {
 enum AppColor {
 
     // MARK: - Brand
-    static let prinmary = ColorToken(.init(hex: "680018"))
+    static let primary = ColorToken(.init(hex: "680018"))
     static let secondary = ColorToken(.init(hex: "AC293B"))
 
     // MARK: - Text
