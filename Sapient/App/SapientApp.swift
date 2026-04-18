@@ -17,7 +17,20 @@ struct SapientApp: App {
     @State private var settingsRouter = StackRouter<SettingsRoute>()
 
     init() {
-        // Keep only large-title preference while debugging title visibility.
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.titleTextAttributes = [
+            .font: AppFont.navTitle.uiFont,
+            .foregroundColor: UIColor(AppColor.textPrimary.color)
+        ]
+        appearance.largeTitleTextAttributes = [
+            .font: AppFont.navLargeTitle.uiFont,
+            .foregroundColor: UIColor(AppColor.textPrimary.color)
+        ]
+
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().prefersLargeTitles = true
     }
 

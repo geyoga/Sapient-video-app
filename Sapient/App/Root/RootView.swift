@@ -22,7 +22,7 @@ struct RootView: View {
         TabView(selection: $appRouter.selectedTab) {
             NavigationStack(path: $libraryRouter.path) {
                 LibraryRootView()
-                    .navigationTitle(AppTab.library.title)
+                    .navigationTitle("Sapient")
                     .navigationBarTitleDisplayMode(.large)
                     .navigationDestination(for: LibraryRoute.self) { route in
                         switch route {

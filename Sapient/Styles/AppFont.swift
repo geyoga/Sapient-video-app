@@ -48,6 +48,25 @@ enum NewsReaderWeight {
             return italic ? "NewsreaderItalic-ExtraBold" : "NewsreaderRoman-ExtraBold"
         }
     }
+
+    var uiWeight: UIFont.Weight {
+        switch self {
+        case .extraLight:
+            return .ultraLight
+        case .light:
+            return .light
+        case .regular:
+            return .regular
+        case .medium:
+            return .medium
+        case .semiBold:
+            return .semibold
+        case .bold:
+            return .bold
+        case .extraBold:
+            return .heavy
+        }
+    }
 }
 
 enum AppFontFamily {
@@ -68,9 +87,32 @@ enum AppFontFamily {
         case .sfPro(let size, let weight):
             return .systemFont(ofSize: size, weight: .init(weight))
         case .newsreader(let size, let weight, let italic):
-            let name = weight.postScriptName(italic: italic)
-            return UIFont(name: name, size: size) ?? .systemFont(ofSize: size, weight: .regular)
+            return Self.newsreaderUIFont(size: size, weight: weight, italic: italic)
         }
+    }
+
+    private static func newsreaderUIFont(size: CGFloat, weight: NewsReaderWeight, italic: Bool) -> UIFont {
+        let postScript = weight.postScriptName(italic: italic)
+        if let font = UIFont(name: postScript, size: size) {
+            return font
+        }
+
+        let variableName = italic
+            ? "Newsreader-Italic-VariableFont_opsz,wght"
+            : "Newsreader-VariableFont_opsz,wght"
+        if let variableBase = UIFont(name: variableName, size: size) {
+            let descriptor = variableBase.fontDescriptor.addingAttributes([
+                .traits: [UIFontDescriptor.TraitKey.weight: weight.uiWeight]
+            ])
+            return UIFont(descriptor: descriptor, size: size)
+        }
+
+        let fallbackName = italic ? "Newsreader-Italic" : "Newsreader-Regular"
+        if let fallback = UIFont(name: fallbackName, size: size) {
+            return fallback
+        }
+
+        return .systemFont(ofSize: size, weight: weight.uiWeight)
     }
 }
 
