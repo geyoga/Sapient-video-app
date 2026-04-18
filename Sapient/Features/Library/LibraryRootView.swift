@@ -12,14 +12,10 @@ struct LibraryRootView: View {
 
     var body: some View {
         List {
-            Button("Open Saved Item") {
-                router.push(.detail(id: "saved-item-1"))
-            }
 
-            Button("Open Recent Item") {
-                router.push(.detail(id: "recent-item-1"))
-            }
         }
+        .scrollContentBackground(.hidden)
+        .background(AppColor.backgroundPrimary.color)
     }
 }
 
