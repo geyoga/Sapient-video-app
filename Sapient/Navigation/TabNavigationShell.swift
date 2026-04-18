@@ -11,28 +11,24 @@ struct TabNavigationShell<Route: Hashable, Content: View, Destination: View>: Vi
 
     @Binding var path: NavigationPath
     let tab: AppTab
-    let title: String
-    let root: Content
+    @ViewBuilder let root: () -> Content
     @ViewBuilder let destination: (Route) -> Destination
 
     init(
         path: Binding<NavigationPath>,
         tab: AppTab,
-        title: String,
-        @ViewBuilder root: () -> Content,
+        @ViewBuilder root: @escaping () -> Content,
         @ViewBuilder destination: @escaping (Route) -> Destination
     ) {
         self._path = path
         self.tab = tab
-        self.title = title
-        self.root = root()
+        self.root = root
         self.destination = destination
     }
 
     var body: some View {
         NavigationStack(path: $path) {
-            root
-                .navigationTitle(title)
+            root()
                 .navigationDestination(for: Route.self, destination: destination)
         }
         .tabItem {

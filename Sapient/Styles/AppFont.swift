@@ -6,18 +6,22 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct FontToken {
-    let font: Font
+    let family: AppFontFamily
     let lineHeight: CGFloat
     let letterSpacing: CGFloat
 
+    var font: Font { family.swiftUIFont }
+    var uiFont: UIFont { family.uiFont }
+
     init(
-        font: Font,
+        family: AppFontFamily,
         lineHeight: CGFloat,
         letterSpacing: CGFloat
     ) {
-        self.font = font
+        self.family = family
         self.lineHeight = lineHeight
         self.letterSpacing = letterSpacing
     }
@@ -50,12 +54,22 @@ enum AppFontFamily {
     case sfPro(size: CGFloat, weight: Font.Weight = .regular)
     case newsreader(size: CGFloat, weight: NewsReaderWeight = .regular, italic: Bool = false)
 
-    var font: Font {
+    var swiftUIFont: Font {
         switch self {
         case .sfPro(let size, let weight):
             return .system(size: size, weight: weight, design: .default)
         case .newsreader(let size, let weight, let italic):
             return .custom(weight.postScriptName(italic: italic), size: size)
+        }
+    }
+
+    var uiFont: UIFont {
+        switch self {
+        case .sfPro(let size, let weight):
+            return .systemFont(ofSize: size, weight: .init(weight))
+        case .newsreader(let size, let weight, let italic):
+            let name = weight.postScriptName(italic: italic)
+            return UIFont(name: name, size: size) ?? .systemFont(ofSize: size, weight: .regular)
         }
     }
 }
@@ -86,11 +100,32 @@ enum AppFont {
     static let labelSmall   = token(.sfPro(size: 8, weight: .semibold), lineHeight: 14, spacing: 0)
     static let labelAction  = token(.sfPro(size: 13, weight: .semibold), lineHeight: 17, spacing: 0)
 
+    // MARK: - Navigation (UIKit + SwiftUI bridge)
+    static let navTitle      = token(.newsreader(size: 18, weight: .semiBold), lineHeight: 24, spacing: 0)
+    static let navLargeTitle = token(.newsreader(size: 32, weight: .bold), lineHeight: 38, spacing: 0)
+
     // MARK: - Private factory
     private static func token(_ family: AppFontFamily, lineHeight: CGFloat, spacing: CGFloat) -> FontToken {
-        FontToken(font: family.font, lineHeight: lineHeight, letterSpacing: spacing)
+        FontToken(family: family, lineHeight: lineHeight, letterSpacing: spacing)
     }
 
+}
+
+extension UIFont.Weight {
+    init(_ weight: Font.Weight) {
+        switch weight {
+        case .ultraLight: self = .ultraLight
+        case .thin: self = .thin
+        case .light: self = .light
+        case .regular: self = .regular
+        case .medium: self = .medium
+        case .semibold: self = .semibold
+        case .bold: self = .bold
+        case .heavy: self = .heavy
+        case .black: self = .black
+        default: self = .regular
+        }
+    }
 }
 
 extension View {

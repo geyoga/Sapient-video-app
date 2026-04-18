@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 @main
 struct SapientApp: App {
@@ -14,6 +15,11 @@ struct SapientApp: App {
     @State private var videoPlayerRouter = StackRouter<VideoPlayerRoute>()
     @State private var libraryRouter = StackRouter<LibraryRoute>()
     @State private var settingsRouter = StackRouter<SettingsRoute>()
+
+    init() {
+        // Keep only large-title preference while debugging title visibility.
+        UINavigationBar.appearance().prefersLargeTitles = true
+    }
 
     var body: some Scene {
         WindowGroup {
