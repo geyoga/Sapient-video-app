@@ -28,7 +28,9 @@ struct LibraryEmptyStateView: View {
             .padding(.horizontal, AppSpacing.lg)
             Spacer()
 
-            ActionButtonAtom(title: String(localized: L10n.Library.Empty.ctaImport), action: {
+            ActionButtonAtom(
+                title: String(localized: L10n.Library.Empty.ctaImport).uppercased(),
+                action: {
                 
             })
         }
