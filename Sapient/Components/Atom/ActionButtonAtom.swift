@@ -54,10 +54,3 @@ struct ActionButtonAtom: View {
         }
     }
 }
-
-
-#Preview {
-    ActionButtonAtom(title: "IMPORT COURSE", action: {
-    })
-    .padding(.horizontal)
-}

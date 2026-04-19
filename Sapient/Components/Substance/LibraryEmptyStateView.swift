@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LibraryEmptyStateView: View {
+    var didTapImportButton: () -> Void
     var body: some View {
         VStack(spacing: AppSpacing.md) {
             Image("icOwlDefault")
@@ -31,7 +32,7 @@ struct LibraryEmptyStateView: View {
             ActionButtonAtom(
                 title: String(localized: L10n.Library.Empty.ctaImport).uppercased(),
                 action: {
-                
+                didTapImportButton()
             })
         }
         .padding(.top, AppSpacing.xl)
@@ -41,9 +42,4 @@ struct LibraryEmptyStateView: View {
         .background(AppColor.backgroundSecondary.color)
         .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
     }
-}
-
-#Preview {
-    LibraryEmptyStateView()
-        .padding()
 }

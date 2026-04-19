@@ -9,10 +9,14 @@ import SwiftUI
 
 struct LibraryRootView: View {
     @Environment(StackRouter<LibraryRoute>.self) private var router
+    @State var isImporting: Bool = false
 
     var body: some View {
         VStack {
-            LibraryEmptyStateView()
+            LibraryEmptyStateView(
+                didTapImportButton: {
+                    isImporting = true
+                })
             Spacer()
         }
         .frame(maxWidth: .infinity)
