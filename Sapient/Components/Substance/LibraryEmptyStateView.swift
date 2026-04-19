@@ -14,21 +14,21 @@ struct LibraryEmptyStateView: View {
                 .padding(.bottom, AppSpacing.sm)
 
             VStack(spacing: AppSpacing.sm) {
-                Text("Your Library starts here.")
-                    .font(AppFont.displayLarge.font)
+                Text(L10n.Library.Empty.title)
+                    .font(AppFont.headingSemiLarge.font)
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, alignment: .center)
 
-                Text("Organize your personal video archives into a beautiful, curated library. Import your first memory to begin.")
+                Text(L10n.Library.Empty.subtitle)
                     .font(AppFont.bodyLarge.font)
                     .foregroundStyle(AppColor.textSecondary.color)
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, alignment: .center)
             }
-            .padding(.horizontal, AppSpacing.md)
+            .padding(.horizontal, AppSpacing.lg)
             Spacer()
 
-            ActionButtonAtom(title: "IMPORT COURSE", action: {
+            ActionButtonAtom(title: String(localized: L10n.Library.Empty.ctaImport), action: {
                 
             })
         }

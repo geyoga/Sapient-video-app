@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsAboutView: View {
     var body: some View {
-        Text("About Sapient")
+        Text(L10n.Settings.aboutTitle)
             .fontStyle(AppFont.displayLarge)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding()

@@ -12,6 +12,7 @@ struct RootView: View {
     @Environment(StackRouter<VideoPlayerRoute>.self) private var videoPlayerRouter
     @Environment(StackRouter<LibraryRoute>.self) private var libraryRouter
     @Environment(StackRouter<SettingsRoute>.self) private var settingsRouter
+    @Environment(\.locale) private var locale
 
     var body: some View {
         @Bindable var appRouter = appRouter
@@ -22,7 +23,7 @@ struct RootView: View {
         TabView(selection: $appRouter.selectedTab) {
             NavigationStack(path: $libraryRouter.path) {
                 LibraryRootView()
-                    .navigationTitle("Sapient")
+                    .navigationTitle(Text(L10n.App.name))
                     .navigationBarTitleDisplayMode(.large)
                     .navigationDestination(for: LibraryRoute.self) { route in
                         switch route {
@@ -32,13 +33,17 @@ struct RootView: View {
                     }
             }
             .tabItem {
-                Label(AppTab.library.title.uppercased(), systemImage: AppTab.library.systemImage)
+                Label {
+                    Text(String(localized: AppTab.library.title).uppercased(with: locale))
+                } icon: {
+                    Image(systemName: AppTab.library.systemImage)
+                }
             }
             .tag(AppTab.library)
 
             NavigationStack(path: $videoPlayerRouter.path) {
                 VideoPlayerRootView()
-                    .navigationTitle(AppTab.insight.title)
+                    .navigationTitle(Text(AppTab.insight.title))
                     .navigationBarTitleDisplayMode(.large)
                     .navigationDestination(for: VideoPlayerRoute.self) { route in
                         switch route {
@@ -48,13 +53,17 @@ struct RootView: View {
                     }
             }
             .tabItem {
-                Label(AppTab.insight.title.uppercased(), systemImage: AppTab.insight.systemImage)
+                Label {
+                    Text(String(localized: AppTab.insight.title).uppercased(with: locale))
+                } icon: {
+                    Image(systemName: AppTab.insight.systemImage)
+                }
             }
             .tag(AppTab.insight)
 
             NavigationStack(path: $settingsRouter.path) {
                 SettingsRootView()
-                    .navigationTitle(AppTab.settings.title)
+                    .navigationTitle(Text(AppTab.settings.title))
                     .navigationBarTitleDisplayMode(.large)
                     .navigationDestination(for: SettingsRoute.self) { route in
                         switch route {
@@ -66,7 +75,11 @@ struct RootView: View {
                     }
             }
             .tabItem {
-                Label(AppTab.settings.title.uppercased(), systemImage: AppTab.settings.systemImage)
+                Label {
+                    Text(String(localized: AppTab.settings.title).uppercased(with: locale))
+                } icon: {
+                    Image(systemName: AppTab.settings.systemImage)
+                }
             }
             .tag(AppTab.settings)
         }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsAccountView: View {
     var body: some View {
-        Text("Account")
+        Text(L10n.Settings.account)
             .fontStyle(AppFont.displayLarge)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding()

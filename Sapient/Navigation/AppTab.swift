@@ -12,14 +12,14 @@ enum AppTab: Hashable {
     case library
     case settings
 
-    var title: String {
+    var title: LocalizedStringResource {
         switch self {
         case .insight:
-            return "Insight"
+            return L10n.Tab.insight
         case .library:
-            return "Library"
+            return L10n.Tab.library
         case .settings:
-            return "Settings"
+            return L10n.Tab.settings
         }
     }
 

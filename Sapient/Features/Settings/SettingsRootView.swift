@@ -12,12 +12,16 @@ struct SettingsRootView: View {
 
     var body: some View {
         List {
-            Button("Account") {
+            Button {
                 router.push(.account)
+            } label: {
+                Text(L10n.Settings.account)
             }
 
-            Button("About") {
+            Button {
                 router.push(.about)
+            } label: {
+                Text(L10n.Settings.about)
             }
         }
     }

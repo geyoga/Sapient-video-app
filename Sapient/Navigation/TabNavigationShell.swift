@@ -10,6 +10,7 @@ import SwiftUI
 struct TabNavigationShell<Route: Hashable, Content: View, Destination: View>: View {
 
     @Binding var path: NavigationPath
+    @Environment(\.locale) private var locale
     let tab: AppTab
     @ViewBuilder let root: () -> Content
     @ViewBuilder let destination: (Route) -> Destination
@@ -32,7 +33,11 @@ struct TabNavigationShell<Route: Hashable, Content: View, Destination: View>: Vi
                 .navigationDestination(for: Route.self, destination: destination)
         }
         .tabItem {
-            Label(tab.title.uppercased(), systemImage: tab.systemImage)
+            Label {
+                Text(String(localized: tab.title).uppercased(with: locale))
+            } icon: {
+                Image(systemName: tab.systemImage)
+            }
         }
         .tag(tab)
     }
