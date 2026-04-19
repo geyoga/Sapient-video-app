@@ -11,10 +11,12 @@ struct LibraryRootView: View {
     @Environment(StackRouter<LibraryRoute>.self) private var router
 
     var body: some View {
-        List {
-
+        VStack {
+            LibraryEmptyStateView()
+            Spacer()
         }
-        .scrollContentBackground(.hidden)
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal)
         .background(AppColor.backgroundPrimary.color)
     }
 }

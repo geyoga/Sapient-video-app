@@ -14,7 +14,7 @@ struct VideoPlayerRootView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                VideoPlayerView()
+//                VideoPlayerView()
 
                 Button("Open Video Detail") {
                     router.push(.detail(id: "sample-video"))
