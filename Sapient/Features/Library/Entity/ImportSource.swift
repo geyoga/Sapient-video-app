@@ -8,6 +8,7 @@
 import Foundation
 
 enum ImportSource: String, CaseIterable, Identifiable {
+//    case photosApp = "Photos App"
     case localFile = "Local File"
     case googleDrive = "Google Drive"
     case youtube = "YouTube"

@@ -11,11 +11,12 @@ struct LibraryEmptyStateView: View {
 
     // MARK: - Public Properties
 
-    var importSource: (ImportSource) -> Void
+    var onImportVideo: (URL) -> Void
 
     // MARK: - Private Propertiess
 
     @State private var isDialogPresented: Bool = false
+    @State private var isLocalFilePickerPresented: Bool = false
 
     // MARK: - Initialize
     
@@ -45,7 +46,14 @@ struct LibraryEmptyStateView: View {
                     isDialogPresented = true
             })
             .importSourceDialog(isPresented: $isDialogPresented) { source in
-                importSource(source)
+                switch source {
+                case .localFile:
+                    isLocalFilePickerPresented = true
+                case .googleDrive:
+                    print("Import from Google Drive")
+                case .youtube:
+                    print("Import from YouTube")
+                }
             }
         }
         .padding(.top, AppSpacing.xl)
@@ -54,5 +62,8 @@ struct LibraryEmptyStateView: View {
         .frame(maxWidth: 400, minHeight: 300, maxHeight: 450, alignment: .top)
         .background(AppColor.backgroundSecondary.color)
         .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .videoFileImporter(isPresented: $isLocalFilePickerPresented) { url in
+            onImportVideo(url)
+        }
     }
 }

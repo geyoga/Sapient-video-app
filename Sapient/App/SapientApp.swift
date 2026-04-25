@@ -16,6 +16,9 @@ struct SapientApp: App {
     @State private var libraryRouter = StackRouter<LibraryRoute>()
     @State private var settingsRouter = StackRouter<SettingsRoute>()
 
+    // temporary shared view model
+    @State private var sharedViewModel = LocalVideoImportViewModel()
+
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()
@@ -41,6 +44,7 @@ struct SapientApp: App {
                 .environment(videoPlayerRouter)
                 .environment(libraryRouter)
                 .environment(settingsRouter)
+                .environment(sharedViewModel)
         }
     }
 }
