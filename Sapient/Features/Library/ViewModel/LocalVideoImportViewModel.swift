@@ -10,12 +10,9 @@ import Combine
 
 @Observable
 final class LocalVideoImportViewModel {
-    
+
     var player: AVPlayer?
     var isLoading: Bool = false
-
-    // MARK: - Temporary Variable
-    var selectedTab: Int = 0
 
     func loadVideoFrom(fileURL: URL) {
         isLoading = true
@@ -36,8 +33,6 @@ final class LocalVideoImportViewModel {
             }
             try FileManager.default.copyItem(at: fileURL, to: copyUrl)
             self.player = AVPlayer(url: copyUrl)
-            self.player?.play()
-            self.selectedTab = 1
         } catch {
             print("Failed to copy file from Files App: \(error.localizedDescription)")
         }
