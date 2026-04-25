@@ -9,13 +9,12 @@ import SwiftUI
 
 struct LibraryRootView: View {
     @Environment(StackRouter<LibraryRoute>.self) private var router
-    @State var isImporting: Bool = false
 
     var body: some View {
         VStack {
             LibraryEmptyStateView(
-                didTapImportButton: {
-                    isImporting = true
+                importSource: { source in
+                    print("Importing from \(source)")
                 })
             Spacer()
         }

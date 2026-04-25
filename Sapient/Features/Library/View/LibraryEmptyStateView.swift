@@ -8,7 +8,17 @@
 import SwiftUI
 
 struct LibraryEmptyStateView: View {
-    var didTapImportButton: () -> Void
+
+    // MARK: - Public Properties
+
+    var importSource: (ImportSource) -> Void
+
+    // MARK: - Private Propertiess
+
+    @State private var isDialogPresented: Bool = false
+
+    // MARK: - Initialize
+    
     var body: some View {
         VStack(spacing: AppSpacing.md) {
             Image("icOwlDefault")
@@ -32,8 +42,11 @@ struct LibraryEmptyStateView: View {
             ActionButtonAtom(
                 title: String(localized: L10n.Library.Empty.ctaImport).uppercased(),
                 action: {
-                didTapImportButton()
+                    isDialogPresented = true
             })
+            .importSourceDialog(isPresented: $isDialogPresented) { source in
+                importSource(source)
+            }
         }
         .padding(.top, AppSpacing.xl)
         .padding(.horizontal, AppSpacing.md)
